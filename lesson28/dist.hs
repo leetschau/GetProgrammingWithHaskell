@@ -4,6 +4,18 @@ main :: IO ()
 main = do
   print (haversine (40.7776, -73.9691) (42.6054, -70.7829))
   print (distanceFromNY (43.1, -80.2))
+  print ((*) <$> val1 <*> val2)
+  print (div <$> val1 <*> val2)
+  print (mod <$> val1 <*> val2)
+  putStrLn "------"
+  putStrLn "Enter the starting city name:"
+  startingInput <- getLine
+  let startingCity = Map.lookup startingInput locationDB
+  putStrLn "Enter the destination city name:"
+  destInput <- getLine
+  let destCity = Map.lookup destInput locationDB
+  let distance = haversine <$> startingCity <*> destCity
+  printDistance distance
 
 type LatLong = (Double, Double)
 
@@ -47,3 +59,7 @@ distanceFromNY :: LatLong -> Double
 --distanceFromNY loc = (haversine (40.7776, -73.9691)) loc
 distanceFromNY = haversine (40.7776, -73.9691)
 
+-- QC 28.3
+
+val1 = Just 10
+val2 = Just 5
