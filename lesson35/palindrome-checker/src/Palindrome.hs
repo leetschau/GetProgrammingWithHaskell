@@ -1,5 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
-module PalindromeText(isPalindrome) where
+module Palindrome(isPalindrome) where
 
 import qualified Data.Text as T
 import Data.Char (toLower, isSpace, isPunctuation)
