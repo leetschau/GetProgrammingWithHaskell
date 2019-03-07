@@ -19,6 +19,11 @@ main = do
   let noaaResponse = decode jsonData :: Maybe NOAAResponse
   let noaaResults = results <$> noaaResponse
   printResult noaaResults
+  -- Q40.2
+  print intListExample
+  print intListString
+  let intListEx = decode intListString :: Maybe IntList
+  print intListEx
 
 -- quick check 40.2
 
@@ -125,3 +130,35 @@ instance FromJSON NOAAResponse
 printResult :: Maybe [NOAAResult] -> IO ()
 printResult Nothing = print "error loading data"
 printResult (Just results) = forM_ results (print . name)
+
+-- Q40.1
+
+instance ToJSON NOAAResult where
+  toJSON (NOAAResult uid mindate maxdate name datacoverage resultId) =
+    object [ "uid" .= uid
+           , "mindate" .= mindate
+           , "maxdate" .= maxdate
+           , "name" .= name
+           , "datacoverage" .= datacoverage
+           , "id" .= resultId
+           ]
+
+instance ToJSON ResultSet
+instance ToJSON Metadata
+instance ToJSON NOAAResponse
+
+-- Q40.2
+
+data IntList = EmptyList
+             | Cons Int IntList
+             deriving (Show, Generic)
+
+intListExample :: IntList
+intListExample = Cons 1 $
+                 Cons 2 EmptyList
+
+instance FromJSON IntList
+instance ToJSON IntList
+
+intListString :: BC.ByteString
+intListString = encode intListExample
