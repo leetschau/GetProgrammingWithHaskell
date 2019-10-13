@@ -56,7 +56,12 @@ Monad 的 `return` 方法对应 Applicative 的 `pure` 方法。
 
 # Monad Transformers
 
-The whole point of monad transformers is that *they transform monads into monads*.
+> The whole point of monad transformers is that *they transform monads into monads*.
+
+Monad transformer 将多个 monad 叠加在一起，形成一个 monad 洋葱，
+其 `lift` 和 `run...`（例如这里的 `runMaybeT`）方法是相对的：
+前者将 IO 中的操作 *提升* 到 `MaybeT IO` 中，后者则 *运行* stack 外层的 monad，
+*取出* 内里包裹的 monad。
 
 P.S.:
 [Monad Transformers Step by Step] 给出了一个从纯函数式实现到 monad，再到 monad transformers 的演进实例，
@@ -70,3 +75,4 @@ P.S.:
 
 * [Monad Transformers Step by Step]: https://page.mi.fu-berlin.de/scravy/realworldhaskell/materialien/monad-transformers-step-by-step.pdf
 
+* [Simplest non-trivial monad transformer example for “dummies”, IO+Maybe]: https://stackoverflow.com/questions/32579133/simplest-non-trivial-monad-transformer-example-for-dummies-iomaybe<Paste>

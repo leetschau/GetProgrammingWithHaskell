@@ -5,7 +5,12 @@ import Control.Monad
 import Control.Monad.Trans.Class
 
 main :: IO ()
-main = askPassphrase2
+-- main = askPassphrase2
+main = do
+    res <- runMaybeT askPassphrase
+    case res of
+      Just rr -> return rr
+      Nothing -> putStrLn "Invalid passphrase"
 
 -- An example validation test implementaton
 isValid :: String -> Bool
